@@ -1,0 +1,930 @@
+\documentclass[12pt]{article}
+%%---------------------------------------------------------------------
+% packages
+% geometry
+\usepackage{geometry}
+% font
+\usepackage{fontspec}
+\defaultfontfeatures{Mapping=tex-text}  %%如果没有它，会有一些 tex 特殊字符无法正常使用，比如连字符。
+\usepackage{xunicode,xltxtra}
+\usepackage[BoldFont,SlantFont,CJKnumber,CJKchecksingle]{xeCJK}  % \CJKnumber{12345}: 一万二千三百四十五
+\usepackage{CJKfntef}  %%实现对汉字加点、下划线等。
+\usepackage{pifont}  % \ding{}
+% math
+\usepackage{amsmath,amsfonts,amssymb}
+% color
+\usepackage{color}
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{EYE}{RGB}{199,237,204}
+\definecolor{FLY}{RGB}{128,0,128}
+\definecolor{ZHY}{RGB}{139,0,255}
+% graphics
+\usepackage[americaninductors,europeanresistors]{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows,shadows,shapes,calc,mindmap,trees,backgrounds}  % placements=positioning
+\usepackage{graphicx}  % \includegraphics[]{}
+\usepackage{subfigure}  %%图形或表格并排排列
+% table
+\usepackage{colortbl,dcolumn}  %% 彩色表格
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{booktabs}
+% code
+\usepackage{fancyvrb}
+\usepackage{listings}%代码高亮
+\lstset{language=C++}%这条命令可以让LaTeX排版时将C++键字突出显示
+\lstset{breaklines}%这条命令可以让LaTeX自动将长的代码行换行排版
+\lstset{extendedchars=false}
+% title
+\usepackage{titlesec}
+% head/foot
+\usepackage{fancyhdr}
+% ref
+\usepackage{hyperref}
+% pagecolor
+\usepackage[pagecolor={EYE}]{pagecolor}
+% tightly-packed lists
+\usepackage{mdwlist}
+
+\usepackage{styles/iplouccfg}
+\usepackage{styles/zhfontcfg}
+\usepackage{styles/iplouclistings}
+
+
+
+%%---------------------------------------------------------------------
+% settings
+% geometry
+\geometry{left=2cm,right=1cm,top=2cm,bottom=2cm}  %设置 上、左、下、右 页边距
+\linespread{1.5} %行间距
+% font
+\setCJKmainfont{Adobe Kaiti Std}
+%\setmainfont[BoldFont=Adobe Garamond Pro Bold]{Apple Garamond}  % 英文字体
+%\setmainfont[BoldFont=Adobe Garamond Pro Bold,SmallCapsFont=Apple Garamond,SmallCapsFeatures={Scale=0.7}]{Apple Garamond}  %%苹果字体没有SmallCaps
+\setCJKmonofont{Adobe Fangsong Std}
+% graphics
+\graphicspath{{figures/}}
+\tikzset{
+    % Define standard arrow tip
+    >=stealth',
+    % Define style for boxes
+    punkt/.style={
+           rectangle,
+           rounded corners,
+           draw=black, very thick,
+           text width=6.5em,
+           minimum height=2em,
+           text centered},
+    % Define arrow style
+    pil/.style={
+           ->,
+           thick,
+           shorten <=2pt,
+           shorten >=2pt,},
+    % Define style for FlyZhyBall
+    FlyZhyBall/.style={
+      circle,
+      minimum size=6mm,
+      inner sep=0.5pt,
+      ball color=red!50!blue,
+      text=white,},
+    % Define style for FlyZhyRectangle
+    FlyZhyRectangle/.style={
+      rectangle,
+      rounded corners,
+      minimum size=6mm,
+      ball color=red!50!blue,
+      text=white,},
+    % Define style for zhyfly
+    zhyfly/.style={
+      rectangle,
+      rounded corners,
+      minimum size=6mm,
+      ball color=red!25!blue,
+      text=white,},
+    % Define style for new rectangle
+    nrectangle/.style={
+      rectangle,
+      draw=#1!50,
+      fill=#1!20,
+      minimum size=5mm,
+      inner sep=0.1pt,}
+}
+\ctikzset{
+  bipoles/length=.8cm
+}
+% code
+\lstnewenvironment{VHDLcode}[1][]{%
+  \lstset{
+    basicstyle=\footnotesize\ttfamily\color{black},%
+    columns=flexible,%
+    framexleftmargin=.7mm,frame=shadowbox,%
+    rulesepcolor=\color{blue},%
+%    frame=single,%
+    backgroundcolor=\color{yellow!20},%
+    xleftmargin=1.2\fboxsep,%
+    xrightmargin=.7\fboxsep,%
+    numbers=left,numberstyle=\tiny\color{blue},%
+    numberblanklines=false,numbersep=7pt,%
+    language=VHDL%
+    }\lstset{#1}}{}
+\lstnewenvironment{VHDLmiddle}[1][]{%
+  \lstset{
+    basicstyle=\scriptsize\ttfamily\color{black},%
+    columns=flexible,%
+    framexleftmargin=.7mm,frame=shadowbox,%
+    rulesepcolor=\color{blue},%
+%    frame=single,%
+    backgroundcolor=\color{yellow!20},%
+    xleftmargin=1.2\fboxsep,%
+    xrightmargin=.7\fboxsep,%
+    numbers=left,numberstyle=\tiny\color{blue},%
+    numberblanklines=false,numbersep=7pt,%
+    language=VHDL%
+    }\lstset{#1}}{}
+\lstnewenvironment{VHDLsmall}[1][]{%
+  \lstset{
+    basicstyle=\tiny\ttfamily\color{black},%
+    columns=flexible,%
+    framexleftmargin=.7mm,frame=shadowbox,%
+    rulesepcolor=\color{blue},%
+%    frame=single,%
+    backgroundcolor=\color{yellow!20},%
+    xleftmargin=1.2\fboxsep,%
+    xrightmargin=.7\fboxsep,%
+    numbers=left,numberstyle=\tiny\color{blue},%
+    numberblanklines=false,numbersep=7pt,%
+    language=VHDL%
+    }\lstset{#1}}{}
+% pdf
+\hypersetup{pdfpagemode=FullScreen,%
+            pdfauthor={Haiyong Zheng},%
+            pdftitle={Title},%
+            CJKbookmarks=true,%
+            bookmarksnumbered=true,%
+            bookmarksopen=false,%
+            plainpages=false,%
+            colorlinks=true,%
+            citecolor=green,%
+            filecolor=magenta,%
+            linkcolor=cyan,%red(default)
+            urlcolor=cyan}
+% section
+%http://tex.stackexchange.com/questions/34288/how-to-place-a-shaded-box-around-a-section-label-and-name
+\newcommand\titlebar{%
+\tikz[baseline,trim left=3.1cm,trim right=3cm] {
+    \fill [cyan!25] (2.5cm,-1ex) rectangle (\textwidth+3.1cm,2.5ex);
+    \node [
+        fill=cyan!60!white,
+        anchor= base east,
+        rounded rectangle,
+        minimum height=3.5ex] at (3cm,0) {
+        \textbf{\thesection.}
+    };
+}%
+}
+\titleformat{\section}{\Large\bf\color{blue}}{\titlebar}{0.1cm}{}
+% head/foot
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+
+\chead{\color{black!50!green}Shape Matching Review}
+
+\lfoot{\color{blue!50!green}Wang Ruchen}
+\cfoot{\color{blue!50!green}\href{http://vision.ouc.edu.cn/~zhenghaiyong}{CVBIOUC}}
+\rfoot{\color{blue!50!green}$\cdot$\ \thepage\ $\cdot$}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%%---------------------------------------------------------------------
+\begin{document}
+%%---------------------------------------------------------------------
+%%---------------------------------------------------------------------
+% \titlepage
+\title{\vspace{-2em}OpenCV\vspace{-0.7em}}
+\author{Wang Ruchen}
+%\date{\vspace{-0.7em}December 26th, 2014\vspace{-0.7em}}
+%%---------------------------------------------------------------------
+\maketitle
+\thispagestyle{fancy}
+%%---------------------------------------------------------------------
+\maketitle
+\tableofcontents 
+
+\section{安装}
+\begin{enumerate}
+\item 进入解压后的opencv3.0目录
+    \begin{lstlisting}[language=C++]
+    mkdir build
+    \end{lstlisting}
+\item 进入build目录
+    \begin{lstlisting}[language=C++]
+    cd build
+    cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+    make
+    sudo make install
+    \end{lstlisting}
+\end{enumerate}
+
+\section{core}
+    核心功能模块，包含如下内容：
+\begin{itemize}
+\item OpenCV基本数据结构
+\item 动态数据结构
+\item 绘图函数
+\item 数组操作相关函数
+\item 辅助功能与系统函数和宏
+\item 与OpenGL的互操作
+\end{itemize}
+\subsection{基本数据类型}
+
+\subsubsection{Point\_}
+\begin{itemize}
+\item Point\_：定义二维坐标x,y
+	\begin{itemize}
+	\item Point \quad Point2d(Point\_<double>) \quad Point2f(Point\_<float>) \quad Point2i(Point\_<int>)\\
+	e.g.：Point2i a(x,y);
+	\end{itemize}
+\end{itemize}
+	
+\subsubsection{Point3\_}
+\begin{itemize}
+\item Point3\_：定义三维坐标x,y,z
+\end{itemize}
+
+\subsubsection{Size\_}
+\begin{itemize}
+\item Size\_：定义图片或矩阵的大小，包含width和height两个元素。
+\end{itemize}
+
+\subsubsection{Rect\_}
+\begin{itemize}
+\item Rect\_：定义二维图片或矩阵，包含元素x,y,width,height。x,y为起始坐标，width,height为矩形的长宽。
+\end{itemize}
+
+\subsubsection{RotatedRect}
+\begin{itemize}
+\item RotatedRect：旋转矩形，包含元素center,size,angle,box。
+
+
+\begin{lstlisting}[language=C++]
+RotatedRect(const Point2f& center, const Size2f& size, float angle)
+\end{lstlisting}
+		\begin{itemize}
+		\item center：矩形的中心坐标
+		\item size：矩形的长宽
+		\item angle：顺时针旋转的角度
+		\end{itemize}
+\begin{lstlisting}[language=C++]
+RotatedRect(const Point2f& point1, const Point2f& point2, const Point2f& point3)
+\end{lstlisting}
+		\begin{itemize}
+		\item point1,2,3 \quad 旋转后三点的坐标，按照顺时针或者逆时针的方向给出。
+		\end{itemize}
+\begin{lstlisting}[language=C++]
+points(Point2f pts[ ])
+\end{lstlisting}
+		\begin{itemize}
+		\item 点数组来存储矩形顶点
+		\end{itemize}
+\begin{lstlisting}[language=C++]
+ boundingRect()
+ \end{lstlisting}
+ 计算点集的最外面矩形边界
+
+\end{itemize}
+
+\subsubsection{Matx}
+定义大小、数据类型已知的矩阵
+\begin{itemize}
+\item Matx12f，Matx12d$\cdots$
+\end{itemize}
+
+\subsubsection{Vec}
+短向量，基于Matx。
+\begin{itemize}
+\item Vec2b \quad Vec<uchar,2>
+\item Vec2s \quad Vec<short,2>
+$\cdots$
+\item Vec2f，Vec2i，Vec2b
+\end{itemize}
+
+\subsubsection{Range}
+范围
+\begin{itemize}
+\item 包括两个元素start，end
+\end{itemize}
+
+\subsubsection{Mat}
+矩阵结构
+\begin{itemize}
+\item M.data数据区域的指针
+\item M.dims矩阵维度
+\item M.sizes维度
+\item M.elemSize()每个元素占的字节空间大小，与元素类型相关，如CV\_8U
+\item M.step[]用来计算元素地址，M.step[i] 表示所有比i大的维度所占空间大小
+\end{itemize}
+创建特殊矩阵
+\begin{itemize}
+\item diag提取指定矩阵的对角线
+	\begin{lstlisting}[language=c++]
+	Mat::diag(const cv::Mat &d)
+	\end{lstlisting}
+\item ones
+	\begin{lstlisting}[language=C++]
+	Mat::ones(int rows, int cols, int type)
+	\end{lstlisting}
+\item zeros 
+	\begin{lstlisting}[language=C++]
+	Mat::zeros(int rows, int cols, int type)
+	\end{lstlisting}
+\item eye 
+	\begin{lstlisting}[language=C++]
+	Mat::eye(int rows, int cols, int type)
+	\end{lstlisting}
+\end{itemize}
+相关属性
+\begin{itemize}
+\item rows行数 \quad row(i)
+\item cols列数 \quad col(i)
+\item begin返回矩阵迭代器，并将其设置为第一矩阵元
+\item end返回矩阵迭代器，并将其设置为最后元素之后的矩阵元
+\item at返回对指定数组元素的引用
+\item size替代矩阵大小规格Size(cols, rows)的方法
+	\begin{lstlisting}[language=c++]
+	Mat::size() const
+	\end{lstlisting}
+\item depth返回一个矩阵元素的深度
+\item type矩阵的类型
+	\begin{lstlisting}[language=c++]
+	Mat::type() const
+	\end{lstlisting}
+\item elemSize返回矩阵元素大小(以字节为单位）
+	\begin{lstlisting}[language=c++]
+	Mat::elemSize() const
+	\end{lstlisting}
+\item total返回数组的总数
+	\begin{lstlisting}[language=c++]
+	Mat::total() const
+	\end{lstlisting}
+\end{itemize}
+矩阵操作
+\begin{itemize}
+\item t转置矩阵
+	\begin{lstlisting}[language=c++]
+	Mat::t() const
+	\end{lstlisting}
+\item inv反转矩阵
+	\begin{lstlisting}[language=c++]
+	Mat::inv(int method=DECOMP_LU) const
+	\end{lstlisting}
+\item mul执行两个矩阵按元素相乘或这两个矩阵的除法
+	\begin{lstlisting}[language=c++]
+	Mat::mul(InputArray m, double scale=1) const
+	\end{lstlisting}
+\item cross计算3元素向量的一个叉乘积
+\item dot计算两向量的点乘
+	\begin{lstlisting}[language=c++]
+	Mat::dot(InputArray m) const
+	\end{lstlisting}
+\item reshape改变矩阵的通道数量，比如把二维矩阵改变成一维矩阵
+	\begin{lstlisting}[language=c++]
+	Mat::reshape(int cn)
+	\end{lstlisting}
+\item resize更改矩阵的行数
+	\begin{lstlisting}[language=c++]
+	Mat::resize(size_t sz, const Scalar& s)
+	\end{lstlisting}
+		\begin{itemize}
+		\item sz \quad 新的行数
+		\item s \quad 分配给新添加的元素的值
+		\end{itemize}
+\item reserve保留一定行的数量
+	\begin{lstlisting}[language=c++]
+	Mat::reserve(size_t sz)
+	\end{lstlisting}
+		\begin{itemize}
+		\item sz \quad 行数
+		\end{itemize}
+\item push\_back将元素添加到矩阵底部
+	\begin{lstlisting}[language=c++]
+	Mat::push_back(const Mat& elem)
+	\end{lstlisting}
+		\begin{itemize}
+		\item elem增加的一个或多个元素
+		\end{itemize}
+\item pop\_back从底部的列表删除元素
+	\begin{lstlisting}[language=c++]
+	Mat::pop_back(size_t nelems=1)
+	\end{lstlisting}
+		\begin{itemize}
+		\item nelems删除的行的数目
+		\end{itemize}
+\end{itemize}
+赋值关系
+\begin{itemize}
+\item clone
+	\begin{lstlisting}[language=c++]
+	cv::Mat F = M.clone(); 
+	\end{lstlisting}
+\item copyTo
+	\begin{lstlisting}[language=c++]
+	cv::Mat G; 
+	F.copyTo(G); 
+	\end{lstlisting}
+\item convertTo
+	\begin{lstlisting}[language=c++]
+	convertTo ( OutputArray m , int rtype , double alpha =1, double beta =0 )
+	\end{lstlisting}
+	生成一个新矩阵，矩阵的中值为原矩阵中的值乘以alpha，然后再加上beta
+\item assignTo
+\item setTo
+\end{itemize}
+
+
+
+\section{class}
+
+\subsection{KeyPoint}
+Keypoint是opencv中的一个类，就是一个关键点，这个关键点存放了很多信息，同时也说明：想获得一个关键点，需要很多信息来初始化它。
+\begin{itemize}
+\item angle：角度，表示关键点的方向，通过Lowe大神的论文可以知道，为了保证方向不变形，SIFT算法通过对关键点周围邻域进行梯度运算，求得该点方向。-1为初值。
+\item class\_id：当要对图片进行分类时，我们可以用class\_id对每个特征点进行区分，未设定时为-1，需要靠自己设定
+\item octave：代表是从金字塔哪一层提取的得到的数据。
+\item pt：关键点点的坐标
+\item response：响应程度，代表该点强壮大小。response代表着该关键点how good，更确切的说，是该点角点的程度。
+\item size：该点直径的大小
+\end{itemize}
+
+注意一个问题：keypoint只是保存了opencv的sift库检测到的特征点的一些基本信息，也就上面所说的这些，但sift所提取出来的特征向量其实不是在这个里面，特征向量通过SiftDescriptorExtractor 提取，结果放在一个Mat的数据结构中。这个数据结构才真正保存了该特征点所对应的特征向量。具体见后文对SiftDescriptorExtractor 所生成的对象的详解。
+
+\section{imgproc}
+包含的内容如下：
+\begin{itemize}
+\item 图像滤波
+\item 直方图
+\item 结构分析和形状描述
+\item 图像变换
+\end{itemize}
+\subsection{图像滤波}
+\subsubsection{bilateralFilter双边滤波}
+\begin{lstlisting}[language=c++]
+void bilateralFilter(InputArray src, OutputArray dst, int d, double sigmaColor, double sigmaSpace, int borderType=BORDER_DEFAULT )
+\end{lstlisting}
+
+\subsubsection{blur均值滤波}
+\begin{lstlisting}[language=c++]
+void blur(InputArray src, OutputArray dst, Size ksize, Point anchor=Point(-1,-1), int borderType=BORDER_DEFAULT )
+\end{lstlisting}
+	\begin{itemize}
+	\item ksize \quad size(3,3) $\cdots$
+	\end{itemize}
+
+\subsubsection{boxFilter方框滤波}
+\begin{lstlisting}[language=c++]
+void boxFilter(InputArray src, OutputArray dst, int ddepth, Size ksize, Point anchor=Point(-1,-1), bool normalize=true, int borderType=BORDER_DEFAULT )
+\end{lstlisting}
+	\begin{itemize}
+	\item ddepth输出图像的深度，-1代表使用原图深度
+	\item ksize内核的大小
+	\end{itemize}
+
+\subsubsection{GaussianBlur高斯滤波}
+\begin{lstlisting}[language=c++]
+GaussianBlur(InputArray src, OutputArray dst, Size ksize, double sigmaX, double sigmaY=0, int borderType=BORDER_DEFAULT )
+\end{lstlisting}
+	\begin{itemize}
+	\item sigmaX表示高斯核函数在X方向的的标准偏差
+	\item sigmaY表示高斯核函数在Y方向的的标准偏差
+	\end{itemize}
+
+\subsubsection{medianBlur中值滤波}
+\begin{lstlisting}[language=c++]
+void medianBlur(InputArray src, OutputArray dst, int ksize)
+\end{lstlisting}
+
+\subsubsection{filter2D滤波器掩码}
+\begin{lstlisting}[language=c++]
+void filter2D(InputArray src, OutputArray dst, int ddepth, InputArray kernel, Point anchor=Point(-1,-1), double delta=0, int borderType=BORDER_DEFAULT )
+\end{lstlisting}
+	\begin{itemize}
+	\item kernel给定的掩膜
+	\end{itemize}
+
+
+\subsection{数学形态学}
+
+\subsubsection{getStructuringElement获得不同结构元素}
+\begin{lstlisting}[language=c++]
+Mat getStructuringElement(int shape, Size ksize, Point anchor=Point(-1,-1))
+\end{lstlisting}
+\begin{itemize}
+\item shape结构元素的形状：
+	\begin{itemize}
+	\item 矩形（包括线形）MORPH\_RECT
+	\item 椭圆（包括圆形）MORPH\_ELLIPSE
+	\item 十字形MORPH\_CROSS\\
+	\end{itemize}
+\item ksize结构元素的大小
+\end{itemize}
+
+\subsubsection{dilate膨胀}
+\begin{lstlisting}[language=c++]
+void dilate(InputArray src, OutputArray dst, InputArray kernel, Point anchor=Point(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar& borderValue=morphologyDefaultBorderValue() )
+\end{lstlisting}
+\begin{itemize}
+\item src输入图像，图像的通道可以是任意的，但是图像位深应该为以下几种：CV\_8U, CV\_16U, CV\_16S, CV\_32F,CV\_64F
+\item dst输出图像
+\item kernel输入结构元素
+\end{itemize}
+
+\subsubsection{erode膨胀}
+\begin{lstlisting}[language=C++]
+void erode(InputArray src, OutputArray dst, InputArray kernel, Point anchor=Point(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar& borderValue=morphologyDefaultBorderValue() )
+\end{lstlisting}
+
+\subsubsection{morphologyEx形态学操作}
+\begin{lstlisting}[language=c++]
+void morphologyEx(InputArray src, OutputArray dst, int op, InputArray kernel, Point anchor=Point(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar& borderValue=morphologyDefaultBorderValue() )
+\end{lstlisting}
+\begin{itemize}
+\item src输入图像，Mat类的对象即可。图像位深应该为以下五种之一：CV\_8U, CV\_16U,CV\_16S, CV\_32F 或CV\_64F。
+\item dst输出图像，函数的输出参数，需要和源图片有一样的尺寸和类型。
+\item op表示形态学运算的类型，可以是如下之一的标识符：
+	\begin{itemize}
+	\item MORPH\_OPEN – 开运算（Opening operation）
+	\item MORPH\_CLOSE – 闭运算（Closing operation）
+	\item MORPH\_GRADIENT -形态学梯度（Morphological gradient）
+	\item MORPH\_TOPHAT - “顶帽”（“Top hat”）
+	\item MORPH\_BLACKHAT - “黑帽”（“Black hat“）
+	\end{itemize}
+\item kernel形态学运算的内核。若为NULL时，表示的是使用参考点位于中心3x3的核。我们一般使用函数 getStructuringElement配合这个参数的使用。
+\end{itemize}
+
+
+
+
+\subsection{几何变换}
+
+\subsubsection{LinearPolar}
+将图像映射到线性极坐标空间中。
+\begin{lstlisting}[language=c++]
+void cvLinearPolar(const CvArr* src, CvArr* dst, CvPoint2D32f center, double maxRadius, int flags=CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS )
+\end{lstlisting}
+\begin{itemize}
+\item src输入图像。 
+\item dst输出图像。 
+\item center变换的中心，输出图像在这里最精确。 
+\item maxRadius反幅度的尺度参数。 
+\item flags插值方法和以下选择标志的结合
+	\begin{itemize}
+	\item CV\_WARP\_FILL\_OUTLIERS 填充输出图像所有像素，如果这些点有和外点对应的，则置零。
+	\item CV\_WARP\_INVERSE\_MAP表示矩阵由输出图像到输入图像的逆变换，并且因此可以直接用于像素插值。否则，函数从map\_matrix中寻找逆变换。 
+	\end{itemize} 
+\end{itemize}
+
+\subsubsection{LogPolar}
+将图像映射到对数极坐标空间中。
+\begin{lstlisting}[language=c++]
+void cvLogPolar(const CvArr* src, CvArr* dst, CvPoint2D32f center, double M, int flags=CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS )
+\end{lstlisting}
+\begin{itemize}
+\item src输入图像。 
+\item dst输出图像。 
+\item center变换的中心，输出图像在这里最精确。 
+\item M幅度的尺度参数。 
+\item flags插值方法和以下选择标志的结合
+	\begin{itemize}
+	\item CV\_WARP\_FILL\_OUTLIERS 填充输出图像所有像素，如果这些点有和外点对应的，则置零。
+	\item CV\_WARP\_INVERSE\_MAP表示矩阵由输出图像到输入图像的逆变换，并且因此可以直接用于像素插值。否则，函数从map\_matrix中寻找逆变换。 
+	\end{itemize} 
+\end{itemize}
+
+\subsubsection{Remap}
+对图像进行普通几何变换
+\begin{lstlisting}[language=c++]
+void remap(InputArray src, OutputArray dst, InputArray map1, InputArray map2, int interpolation, int borderMode=BORDER_CONSTANT, const Scalar& borderValue=Scalar())
+\end{lstlisting}
+\begin{itemize}
+\item src输入图像. 
+\item dst输出图像. 
+\item mapx为x坐标的映射 (32fC1 image). 
+\item mapy为y坐标的映射 (32fC1 image). 
+\item flags插值方法和以下开关选项的组合:
+	\begin{itemize}
+	\item CV\_WARP\_FILL\_OUTLIERS填充边界外的像素. 如果输出图像的部分象素落在变换后的边界外，那么它们的值设定为 fillval。
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Resize}
+改变图像大小
+\begin{lstlisting}[language=c++]
+void resize(InputArray src, OutputArray dst, Size dsize, double fx=0, double fy=0, int interpolation=INTER_LINEAR )
+\end{lstlisting}
+\begin{itemize}
+\item src输入图像. 
+\item dst输出图像. 
+\item dsize输出图像的尺寸
+\item interpolation插值方法:
+	\begin{itemize}
+	\item CV\_INTER\_NN最近邻插值,
+	\item CV\_INTER\_LINEAR双线性插值 (缺省使用)
+	\item CV\_INTER\_AREA使用象素关系重采样。当图像缩小时候，该方法可以避免波纹出现。当图像放大时，类似于 CV\_INTER\_NN 方法
+	\item CV\_INTER\_CUBIC立方插值
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{各种形式图像转换}
+
+\subsubsection{adaptiveThreshold自适应阈值}
+\begin{lstlisting}[language=c++]
+void adaptiveThreshold(InputArray src, OutputArray dst, double maxValue, int adaptiveMethod, int thresholdType, int blockSize, double C)
+\end{lstlisting}
+\begin{itemize}
+\item src输入图像
+\item dst输出图像
+\item maxValue自适应阈值的最大值
+\item adaptiveMethod自适应阈值算法使用：CV\_ADAPTIVE\_THRESH\_MEAN\_C（均值） 或 CV\_ADAPTIVE\_THRESH\_GAUSSIAN\_C（加权）
+\item thresholdType取阈值类型：CV\_THRESH\_BINARY或CV\_THRESH\_BINARY\_INV
+\item blockSize用来计算阈值的象素邻域大小: 3, 5, 7, ...
+\item C对方法的有关参数，对方法 CV\_ADAPTIVE\_THRESH\_MEAN\_C 和 CV\_ADAPTIVE\_THRESH\_GAUSSIAN\_C， 它是一个从均值或加权均值提取的常数（见讨论）, 尽管它可以是负数。
+\end{itemize}
+
+\subsubsection{cvtColor色彩转换}
+\begin{lstlisting}[language=c++]
+void cvtColor(InputArray src, OutputArray dst, int code, int dstCn=0 )
+\end{lstlisting}
+\begin{itemize}
+\item code色彩空间转换代码\\
+有如下转换：
+	\begin{itemize}
+	\item RGB$\leftrightarrow$GRAY：COLOR\_BGR2GRAY, COLOR\_RGB2GRAY, COLOR\_GRAY2BGR, COLOR\_GRAY2RGB
+	\item RGB$\leftrightarrow$CIE：COLOR\_BGR2XYZ, COLOR\_RGB2XYZ, COLOR\_XYZ2BGR, COLOR\_XYZ2RGB
+	\item RGB$\leftrightarrow$YCrCb JPEG (or YCC)：COLOR\_BGR2YCrCb, COLOR\_RGB2YCrCb, COLOR\_YCrCb2BGR, COLOR\_YCrCb2RGB
+	\item RGB$\leftrightarrow$HSV：COLOR\_BGR2HSV, COLOR\_RGB2HSV, COLOR\_HSV2BGR, COLOR\_HSV2RGB
+	$\cdots$
+	\end{itemize}
+\item dstCn表示dst图像的波段数，这个值默认是0，它可以从参数code中推断。 
+\end{itemize}
+
+\subsubsection{threshold固定阈值二值化}
+\begin{lstlisting}[language=c++]
+double threshold(InputArray src, OutputArray dst, double thresh, double maxval, int type)
+\end{lstlisting}
+\begin{itemize}
+\item thresh二值化阈值
+\item maxval二值化的最大值
+\item type运算方法：THRESH\_BINARY,THRESH\_BINARY\_INV,THRESH\_TRUNC,THRESH\_TOZERO,THRESH\_TOZERO\_INV
+\end{itemize}
+
+\subsubsection{watershed分水岭算法}
+\begin{lstlisting}[language=c++]
+void watershed(InputArray image, InputOutputArray markers)
+\end{lstlisting}
+\begin{itemize}
+\item image输入图像为3路8位
+\item markers输出
+\end{itemize}
+
+
+\subsection{结构分析和形状描述}
+\subsubsection{findContours}
+\begin{lstlisting}[language=c++]
+void findContours(InputOutputArray image, OutputArrayOfArrays contours, OutputArray hierarchy, int mode, int method, Point offset=Point())
+void findContours(InputOutputArray image, OutputArrayOfArrays contours, int mode, int method, Point offset=Point())
+\end{lstlisting}
+\begin{itemize}
+\item image为二值单通道图像
+\item contours输出轮廓坐标
+\item hiararchy参数和轮廓个数相同，每个轮廓contours[i]对应4个hierarchy元素hierarchy[i][0] ~hierarchy[i][3]，分别表示后一个轮廓、前一个轮廓、父轮廓、内嵌轮廓的索引编号，如果没有对应项，该值设置为负数
+\item mode表示轮廓的检索模式
+	\begin{itemize}
+	\item CV\_RETR\_EXTERNAL表示只检测外轮廓
+	\item CV\_RETR\_LIST检测的轮廓不建立等级关系
+	\item CV\_RETR\_CCOMP建立两个等级的轮廓，上面的一层为外边界，里面的一层为内孔的边界信息。如果内孔内还有一个连通物体，这个物体的边界也在顶层。
+	\item CV\_RETR\_TREE建立一个等级树结构的轮廓
+	\end{itemize}
+\item method为轮廓的近似办法
+	\begin{itemize}
+	\item CV\_CHAIN\_APPROX\_NONE存储所有的轮廓点，相邻的两个点的像素位置差不超过1，即max（abs（x1-x2），abs（y2-y1））==1
+	\item CV\_CHAIN\_APPROX\_SIMPLE压缩水平方向，垂直方向，对角线方向的元素，只保留该方向的终点坐标，例如一个矩形轮廓只需4个点来保存轮廓信息
+	\item CV\_CHAIN\_APPROX\_TC89\_L1，CV\_CHAIN\_APPROX\_TC89\_KCOS使用teh-Chinl chain 近似算法
+	\end{itemize}
+\end{itemize}
+
+
+
+\subsection{绘图相关函数}
+opencv.hpp
+
+\subsubsection{Scalar}
+\begin{itemize}
+\item Scalar(a,b,c)
+	\begin{itemize}
+	\item a为蓝色
+	\item b为绿色
+	\item c为红色
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Rectangle}
+\begin{lstlisting}[language=c++]
+rectangle(Mat& img, Point pt1, Point pt2, const Scalar&color, int thickness=1,int lineType=8, int shift=0)
+\end{lstlisting}
+	\begin{itemize}
+	\item img为画矩形的对象
+	\item pt1所画矩形左上角点坐标
+	\item pt2所画矩形右下角点坐标
+	\end{itemize}
+\begin{lstlisting}[language=c++]
+rectangle(Mat& img,Rect rec, const Scalar&color, int thickness=1, int lineType=8,int shift=0 )
+\end{lstlisting}
+	\begin{itemize}
+	\item rec为确定矩形的另一种方式，给定左上角的坐标和长宽
+	\item color指定矩形的颜色
+	\item thickness线宽
+	\item lingType边框线型
+	\item shift坐标点的小数点位数
+	\end{itemize}
+
+\subsubsection{Line}
+\begin{lstlisting}[language=c++]
+line(Mat& img, Point pt1, Point pt2, const Scalar& color, int thickness=1, int lineType=8, int shift=0)
+\end{lstlisting}
+	\begin{itemize}
+	\item img为要画的对象
+	\item pt1线条的起点坐标
+	\item pt2线条的终点坐标
+	\end{itemize}
+
+\subsubsection{Circle}
+\begin{lstlisting}[language=c++]
+circle(Mat&img, Point center, int radius, const Scalar&color,int thickness=1, int lineType=8, int shift=0)
+\end{lstlisting}
+	\begin{itemize}
+	\item img为要画圆的对象
+	\item center为圆的中心坐标
+	\item radius为圆的半径
+	\end{itemize}
+
+\subsubsection{Ellipse}
+\begin{lstlisting}[language=c++]
+ellipse(Mat& img, Point center, Size axes, double angle, double startAngle, double endAngle, const Scalar& color, int thickness=1, int lineType=8, int shift=0)
+\end{lstlisting}
+	\begin{itemize}
+	\item center椭圆中心的坐标
+	\item axes为椭圆长短轴的一半
+	\item startAngle椭圆弧起始的角度
+	\item endAngle椭圆弧终止的角度
+	\end{itemize}
+\begin{lstlisting}[language=c++]
+ellipse(Mat& img, constRotatedRect& box, const Scalar& color, int thickness=1, int lineType=8)
+\end{lstlisting}
+	\begin{itemize}
+	\item box指定椭圆中心和旋转角度的信息，通过 RotatedRect 或 CvBox2D. 这表示椭圆画在旋转矩形上（矩形是不可见的，只是指定了一个框而已）
+	\end{itemize}
+
+\subsubsection{PutText}
+\begin{lstlisting}[language=c++]
+putText(Mat& img, const string& text, Point org, int fontFace, double fontScale, Scalar color, int thickness=1, int lineType=8, bool bottomLeftOrigin=false )
+\end{lstlisting}
+	\begin{itemize}
+	\item text要显示的文字
+	\item org文字在图像中左下角的坐标
+	\item fontFace字体类型，可选择字体：FONT\_HERSHEY\_SIMPLEX, FONT\_HERSHEY\_PLAIN$\cdots$所有类型都可以配合 FONT\_HERSHEY\_ITALIC使用，产生斜体效果。
+	\item fontScale字体的大小
+	\end{itemize}
+
+\subsubsection{drawContours}
+\begin{lstlisting}[language=c++]
+void drawContours(InputOutputArray image, InputArrayOfArrays contours, int contourIdx, const Scalar& color, int thickness=1, int lineType=LINE_8, InputArray hierarchy=noArray(), int maxLevel=INT_MAX, Point offset=Point() )
+\end{lstlisting}
+\begin{itemize}
+\item image目标图像
+\item contours输入轮廓，轮廓被存放在vector<vector<Point> >中
+\item contourldx这个参数是描述怎样画轮廓。如果为负数，则画出全部轮廓。
+\item color表示化轮廓的颜色。
+\end{itemize}
+
+
+
+
+\section{shape}
+
+\subsection{Hausdorff}
+\begin{lstlisting}[language=c++]
+int main()
+{
+    cv::Ptr <cv::HausdorffDistanceExtractor> hausdorff_ptr = cv::createHausdorffDistanceExtractor();
+    vector<Point> pt1s;
+    vector<Point> pt2s;
+    pt1s.push_back(Point(0, 0));
+    pt1s.push_back(Point(0, 4));
+    pt2s.push_back(Point(4, 6));
+    pt2s.push_back(Point(4, 2));
+    float distance = hausdorff_ptr->computeDistance(pt1s, pt2s);
+    cout << distance << endl;
+}
+\end{lstlisting}
+
+
+
+\section{object delection}
+\subsection{matchTemplate}
+在模板块和输入图像之间寻找匹配，获得匹配结果图像。
+\begin{lstlisting}[language=c++]
+void matchTemplate(InputArray image, InputArray templ, OutputArray result, int method)
+\end{lstlisting}
+\begin{itemize}
+\item image要搜索的图像对象
+\item templ需要匹配的模板
+\item result比较结果，必须是单通单32位浮点数
+\item method比较算法，共有六种方法如下：
+	\begin{itemize}
+	\item CV\_TM\_SQDIFF平方差匹配法，最好的匹配为0，值越大匹配越差
+	\item CV\_TM\_SQDIFF\_NORMED归一化平方差匹配法
+	\item CV\_TM\_CCORR相关匹配法，采用乘法操作，数值越大表明匹配越好
+	\item CV\_TM\_CCORR\_NORMED数值越小越好
+	\item CV\_TM\_CCOEFF相关系数匹配法，最好的匹配为1，-1表示最差的匹配
+	\item CV\_TM\_CCOEFF\_NORMED归一化相关系数匹配法
+	\end{itemize}
+\end{itemize}
+例子：
+\begin{lstlisting}[language=c++]
+int main(int argc, char* argv[])
+{
+    string path1="/Users/wangruchen/work/program/part-matching/pic/1.jpg";
+    string path2="/Users/wangruchen/work/program/part-matching/pic/1-part.png";
+    Mat srcIm=imread(path1);
+    Mat partIm=imread(path2);
+    Mat result;
+    matchTemplate(srcIm, partIm, result, TM_SQDIFF);
+    normalize(result, result, 0, 1, NORM_MINMAX);//归一化
+    double minVal,maxVal;
+    Point minPoi,maxPoi;
+    minMaxLoc(result, & minVal, &maxVal, &minPoi, &maxPoi);//寻找矩阵result中最大值和最小值的位置
+    rectangle(srcIm, minPoi, Point2f(minPoi.x+partIm.cols,minPoi.y+partIm.rows), Scalar(255,0,0));//在匹配位置画出矩形
+    imshow("result", srcIm);
+    waitKey(0);
+    return 0;
+}
+\end{lstlisting}
+
+
+
+\section{图像读取和保存}
+\subsection{imread}
+载入一副图片。
+\begin{lstlisting}[language=c++]
+Mat imread(const String& filename, int flags=IMREAD_COLOR )
+\end{lstlisting}
+\begin{itemize}
+\item flags
+	\begin{itemize}
+	\item CV\_LOAD\_IMAGE\_ANYDEPTH转换为16位32位，或者8位
+	\item CV\_LOAD\_IMAGE\_COLOR转换为彩色
+	\item CV\_LOAD\_IMAGE\_GRAYSCALE转换为灰度图
+	\item 大于0返回为3通道彩色图像
+	\item 小于0返回为1通道灰度图像
+	\item 小于0返回加载图（alpha通道）
+	\end{itemize}
+\item 支持一下格式：.bmp, .dib, .jpeg, .jpg, .jpe, .jp2, .png, .webp, .pbm, .pgm, .ppm, .sr, .ras, .tiff, .tif
+\end{itemize}
+
+
+
+
+\section{数据类型及位数总结}
+表示了矩阵中元素的类型以及矩阵的通道个数，它是一系列的预定义的常量，其命名规则为CV\_(位数）+（数据类型）+（通道数）。具体的有以下值：
+\subsection{Unsigned 8bits}
+CvMat数据结构参数：CV\_8UC1，CV\_8UC2，CV\_8UC3，CV\_8UC4
+
+\subsection{Signed 8bits}
+CvMat数据结构参数：CV\_8SC1，CV\_8SC2，CV\_8SC3，CV\_8SC4
+
+\subsection{Unsigned 16bits}
+CvMat数据结构参数：CV\_16UC1，CV\_16UC2，CV\_16UC3，CV\_16UC4
+
+\subsection{Signed 16bits}
+CvMat数据结构参数：CV\_16SC1，CV\_16SC2，CV\_16SC3，CV\_16SC4
+
+\subsection{Signed 32bits}
+CvMat数据结构参数：CV\_32SC1，CV\_32SC2，CV\_32SC3，CV\_32SC4
+
+\subsection{Float 32bits}
+CvMat数据结构参数：CV\_32FC1，CV\_32FC2，CV\_32FC3，CV\_32FC4
+
+\subsection{Double 64bits}
+CvMat数据结构参数：CV\_64FC1，CV\_64FC2，CV\_64FC3，CV\_64FC4
+
+
+
+
+
+
+
+%%---------------------------------------------------------------------
+\end{document}
