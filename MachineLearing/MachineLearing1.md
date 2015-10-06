@@ -1,4 +1,5 @@
 # 机器学习1
+参考文章：[机器学习常见算法分类汇总](http://www.ctocio.com/hotnews/15919.html)
 
 <!-- ## 监督学习
 常见算法有： 
@@ -81,3 +82,35 @@
 2. Eclat算法
 
 ## 人工神经网络
+常见算法有：
+
+1. 感知器神经网络（Perceptron Neural Network）
+2. 反向传递（Back Propagation）
+3. Hopfield网络
+4. 自组织映射（Self-Organizing Map, SOM）
+
+## 深度学习
+常见算法有：
+
+1. 受限波尔兹曼机（Restricted Boltzmann Machine, RBN）
+2. Deep Belief Networks（DBN）
+3. 卷积网络（Convolutional Network）
+4. 堆栈式自动编码器（Stacked Auto-encoders）
+
+## 降低维度算法
+常见算法包括：
+
+1. 主成分分析（Principle Component Analysis, PCA）
+2. 偏最小二乘回归（Partial Least Spuare Regression, PLS）
+3. Sammon映射
+4. 多维尺度（Multi-Dimensional Scaling, MDS）
+5. 投影追踪（Projection Pursuit）
+
+## 集成学习（Ensemble learning）
+集成学习是使用一系列较弱的学习器进行学习,并使用某种规则把各个学习结果进行整合从而获得比单个学习器更好的学习效果的一种机器学习方法。集成学习按照基本分类器之间的关系可以分为**异态集成学习**和**同态集成学习**。异态集成学习是指弱分类器之间本身不同,而同态集成 学习是指弱分类器之间本身相同只是参数不同。
+
+常见算法有：
+
+1. Bagging
+2. Boostion
+3. Gasen
