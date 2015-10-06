@@ -80,4 +80,4 @@
 1. Apriori算法
 2. Eclat算法
 
-## rengong
+## 人工神经网络
