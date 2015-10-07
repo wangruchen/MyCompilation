@@ -40,23 +40,33 @@ CMake 生成 Makefile 并编译的流程：
 	* 例：`include_directories("/usr/local/include")`将目录下的头文件加入到工程中
 * find\_path命令
 	* `find_path(<VAR> name1 [path1 path2 …])`
-	* 查找包含文件 name1 的路径，如果找到则将路径保存在 VAR 中（此路径为一个绝对路径），如果没有找到则结果为 \<VAR> - NOTFOUND
+	* 查找包含文件 name1 的路径，如果找到则将路径保存在 VAR 中（此路径为一个绝对路径），如果没有找到则结果为\<VAR> - NOTFOUND
 * find_library命令
-	* 
+	* `find_library(<VAR> name1 [path1 path2 …])`
+	* 查找库文件 name1 的路径，如果找到则将路径保存在 VAR 中（此路径为一个绝对路径），如果没有找到则结果为\<VAR> - NOTFOUND。
 
 ## 例子
 假设现在我们的项目中只有一个源文件 main.cc 。
 
-1. 编写 CMakeLists.txt 文件，并保存在与 main.cc 源文件同个目录下。
+1. 编写 CMakeLists.txt 文件，并保存在与 main.cpp 源文件同个目录下。
 
 	```
 	cmake_minimum_required(VERSION 3.1)
-	project (project)
-	add_executable(Demo main.cpp)
+	project (Batching)
+	find_package( OpenCV REQUIRED )
+	include_directories( "/usr/local/include" )
+	add_executable(Batching main.cpp)
+	target_link_libraries( Batching ${OpenCV_LIBS} )
 	```
-	`project`:表示项目的名称是project。
+	`project`:表示项目的名称是Batching。
 	
-	`add_executable`:表示将名为 main.cpp 的源文件编译成一个名称为 Demo 的可执行文件
+	`find_package`:寻找OpenCV的库的位置
+	
+	`include_directories`:将目录下的头文件加入到工程
+	
+	`add_executable`:表示将名为 main.cpp 的源文件编译成一个名称为 Batching 的可执行文件
+	
+	`target_link_libraries`:加入动态链接库
 2. 编译当前项目：
 
 	```
