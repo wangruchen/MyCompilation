@@ -44,6 +44,14 @@ CMake 生成 Makefile 并编译的流程：
 * find_library命令
 	* `find_library(<VAR> name1 [path1 path2 …])`
 	* 查找库文件 name1 的路径，如果找到则将路径保存在 VAR 中（此路径为一个绝对路径），如果没有找到则结果为\<VAR> - NOTFOUND。
+* set命令
+	* `set(<variable> <value>)`
+	* 用于设定变量variable的值为value
+	* 例：`set(Hello main)`
+* unset命令
+	* `unset(<variable> [CACHE])`
+	* 用于移除变量variable，如果指定了CACHE变量将从Cache中移除。
+	* 例：`unset(var CACHE)`
 
 ## 例子
 假设现在我们的项目中只有一个源文件 main.cc 。
