@@ -37,13 +37,20 @@ CMake 生成 Makefile 并编译的流程：
 	* 例：`target_link_libraries(Hello libs)`
 * include\_directories命令
 	* 指定头文件的搜索路径
-	* 例：`include_directories("/usr/local/include")`将目录下的头文件加入到工程中
+	* 例：`include_directories(/usr/local/include)`将目录下的头文件加入到工程中
 * find\_path命令
 	* `find_path(<VAR> name1 [path1 path2 …])`
 	* 查找包含文件 name1 的路径，如果找到则将路径保存在 VAR 中（此路径为一个绝对路径），如果没有找到则结果为\<VAR> - NOTFOUND
 * find_library命令
 	* `find_library(<VAR> name1 [path1 path2 …])`
 	* 查找库文件 name1 的路径，如果找到则将路径保存在 VAR 中（此路径为一个绝对路径），如果没有找到则结果为\<VAR> - NOTFOUND。
+* find_package命令
+	* `find_package(<name> [major.minor] [QUIET] [NO_MODULE][[REQUIRED|COMPONENTS] [componets...]])`
+	* 指示要找的包name是否被找到。
+	* 参数：
+		* QUIET：禁用掉包没有被发现时的警告信息。
+		* REQUIRED：如果没有找到，cmake的过程会终止，并输出警告信息。
+		* EXACT：要求该版本号必须精确匹配。
 * set命令
 	* `set(<variable> <value>)`
 	* 用于设定变量variable的值为value
@@ -62,7 +69,7 @@ CMake 生成 Makefile 并编译的流程：
 	cmake_minimum_required(VERSION 3.1)
 	project (Batching)
 	find_package( OpenCV REQUIRED )
-	include_directories( "/usr/local/include" )
+	include_directories( /usr/local/include )
 	add_executable(Batching main.cpp)
 	target_link_libraries( Batching ${OpenCV_LIBS} )
 	```
