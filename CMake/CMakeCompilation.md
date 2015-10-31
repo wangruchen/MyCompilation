@@ -67,7 +67,7 @@ CMake 生成 Makefile 并编译的流程：
 
 	```
 	cmake_minimum_required(VERSION 3.1)
-	project (Batching)
+	project(Batching)
 	find_package( OpenCV REQUIRED )
 	include_directories( /usr/local/include )
 	add_executable(Batching main.cpp)
