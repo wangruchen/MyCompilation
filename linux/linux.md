@@ -44,3 +44,9 @@ gedit ~/.bashrc
 - \n换行符
 - \#命令编号
 
+### 终端补全设置为大小写不敏感
+在~/.inputrc中加入一行（如果没有就新建一个）：
+```
+set completion-ignore-case on
+```
+
