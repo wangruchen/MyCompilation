@@ -108,7 +108,7 @@ target_link_libraries( Batching ${OpenCV_LIBS} )
 **如果在一个目录下有多个源文件（除了主函数还有其他子函数）。**
 
 ```
-./Demo2
+./Demo
     |
     +--- main.cpp
     |
@@ -139,7 +139,7 @@ add_executable(name ${DIR_SRCS})
 **如果有多个目录多个源文件（源文件放在不同的目录下）。**
 
 ```
-./Demo3
+./Demo
     |
     +--- main.cpp
     |
