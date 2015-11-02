@@ -66,12 +66,12 @@ CMake 生成 Makefile 并编译的流程：
 假设现在我们的项目中只有一个源文件 main.cpp 。
 
 1. 编写 CMakeLists.txt 文件，并保存在与 main.cpp 源文件同个目录下。
-
-```
-cmake_minimum_required(VERSION 3.1)
-project(name)
-add_executable(name main.cpp)
-```
+	
+	```
+	cmake_minimum_required(VERSION 3.1)
+	project(name)
+	add_executable(name main.cpp)
+	```
 
 2. 编译当前项目：
 
@@ -84,24 +84,78 @@ add_executable(name main.cpp)
 ### 例2
 假设现在我们的项目中只有一个源文件 main.cpp，但需要调用OpenCV。
 
-1. 编写 CMakeLists.txt 文件，并保存在与 main.cpp 源文件同个目录下。
+编写 CMakeLists.txt 文件，并保存在与 main.cpp 源文件同个目录下.
 
-	```
-	cmake_minimum_required(VERSION 3.1)
-	project(Batching)
-	find_package( OpenCV REQUIRED )
-	include_directories( /usr/local/include )
-	add_executable(Batching main.cpp)
-	target_link_libraries( Batching ${OpenCV_LIBS} )
-	```
-	`project`:表示项目的名称是Batching。
+```
+cmake_minimum_required(VERSION 3.1)
+project(Batching)
+find_package( OpenCV REQUIRED )
+include_directories( /usr/local/include )
+add_executable(Batching main.cpp)
+target_link_libraries( Batching ${OpenCV_LIBS} )
+```
+`project`:表示项目的名称是Batching。
 	
-	`find_package`:寻找OpenCV的库的位置
+`find_package`:寻找OpenCV的库的位置
 	
-	`include_directories`:将目录下的头文件加入到工程
+`include_directories`:将目录下的头文件加入到工程
 	
-	`add_executable`:表示将名为 main.cpp 的源文件编译成一个名称为 Batching 的可执行文件
+`add_executable`:表示将名为 main.cpp 的源文件编译成一个名称为 Batching 的可执行文件
 	
-	`target_link_libraries`:加入动态链接库
+`target_link_libraries`:加入动态链接库
 
+### 例3
+如果在一个目录下有多个源文件（除了主函数还有其他子函数）。
 
+```
+./Demo2
+    |
+    +--- main.cpp
+    |
+    +--- subfunction.cpp
+    |
+    +--- subfunction.h
+```
+
+编写 CMakeLists.txt 文件可以写成：
+
+```
+cmake_minimum_required(VERSION 3.1)
+project(name)
+add_executable(name main.cpp subfunction.cpp)
+```
+或
+
+```
+cmake_minimum_required(VERSION 3.1)
+project(name)
+aux_source_directory(. DIR_SRCS)
+add_executable(name ${DIR_SRCS})
+```
+	
+`aux_source_directory `:命令会查找指定目录下的所有源文件，然后将结果存进指定变量名。
+
+### 例4
+如果有多个目录多个源文件（源文件放在不同的目录下）。
+
+```
+./Demo3
+    |
+    +--- main.cpp
+    |
+    +--- subfunction/
+          |
+          +--- subfunction.cpp
+          |
+          +--- subfunction.h
+```
+编写 CMakeLists.txt 文件可以写成：
+
+```
+cmake_minimum_required(VERSION 3.1)
+project(name)
+aux_source_directory(. DIR_SRCS)
+add_subdirectory(subfunction)
+add_executable(name ${DIR_SRCS})
+```
+`add_subdirectory`:指明本项目包含一个子目录subfunction。
