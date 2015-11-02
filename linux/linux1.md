@@ -1,4 +1,4 @@
-# Linux使用笔记
+# Linux使用笔记1——终端配置
 
 ## 右键在当前位置打开终端
 1. 安装nautilus-open-terminal
