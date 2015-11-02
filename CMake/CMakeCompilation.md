@@ -63,7 +63,7 @@ CMake 生成 Makefile 并编译的流程：
 ## 例子
 
 ### 例1
-假设现在我们的项目中只有一个源文件 main.cpp 。
+**假设现在我们的项目中只有一个源文件 main.cpp 。**
 
 1. 编写 CMakeLists.txt 文件，并保存在与 main.cpp 源文件同个目录下。
 	
@@ -82,7 +82,7 @@ CMake 生成 Makefile 并编译的流程：
 	CMakeLists.txt就在当前目录下时`cmake .`。
 
 ### 例2
-假设现在我们的项目中只有一个源文件 main.cpp，但需要调用OpenCV。
+**假设现在我们的项目中只有一个源文件 main.cpp，但需要调用OpenCV。**
 
 编写 CMakeLists.txt 文件，并保存在与 main.cpp 源文件同个目录下.
 
@@ -105,7 +105,7 @@ target_link_libraries( Batching ${OpenCV_LIBS} )
 `target_link_libraries`:加入动态链接库
 
 ### 例3
-如果在一个目录下有多个源文件（除了主函数还有其他子函数）。
+**如果在一个目录下有多个源文件（除了主函数还有其他子函数）。**
 
 ```
 ./Demo2
@@ -136,7 +136,7 @@ add_executable(name ${DIR_SRCS})
 `aux_source_directory `:命令会查找指定目录下的所有源文件，然后将结果存进指定变量名。
 
 ### 例4
-如果有多个目录多个源文件（源文件放在不同的目录下）。
+**如果有多个目录多个源文件（源文件放在不同的目录下）。**
 
 ```
 ./Demo3
