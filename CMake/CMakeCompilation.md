@@ -1,5 +1,5 @@
-# CMake总结
-参考文章：[CMake入门教程](http://blog.csdn.net/fan_hai_ping/article/details/42524205)
+# CMake使用笔记
+参考文章：[CMake入门教程](http://blog.csdn.net/fan_hai_ping/article/details/42524205)，[CMake入门实战](http://hahack.com/codes/cmake/)
 
 ## 介绍
 CMake 生成 Makefile 并编译的流程：
