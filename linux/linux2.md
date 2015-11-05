@@ -32,3 +32,7 @@ Mac：
 ```
 open .
 ```
+Linux:
+```
+gnome-open <url>
+```
