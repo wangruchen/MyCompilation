@@ -1,4 +1,7 @@
 # CMake使用笔记
+
+[toc]
+
 参考文章：[CMake入门教程](http://blog.csdn.net/fan_hai_ping/article/details/42524205)，[CMake入门实战](http://hahack.com/codes/cmake/)
 
 ## 介绍
