@@ -18,7 +18,7 @@
 1. 从<img src="http://www.forkosh.com/mathtex.cgi? \theta_{0},\theta_{1}">开始，将它们初始化，通常都设置为0；。
 2. 不断改变<img src="http://www.forkosh.com/mathtex.cgi? \theta_{0},\theta_{1}">的值得到<img src="http://www.forkosh.com/mathtex.cgi? J(\theta_{0},\theta_{1})}">，直到得到期望的最小值。
 
-梯度下降算法（Gradient descent algorithm
+梯度下降算法（Gradient descent algorithm）
 	重复直到收敛<img src="http://www.forkosh.com/mathtex.cgi? \{\theta_{j}: = \theta_{j}-\alpha\frac{\partial}{\partial\theta_{j}}J(\theta_{0},\theta_{1})\}"> <img src="http://www.forkosh.com/mathtex.cgi? (for j=0~and ~j=1)">
 	公式中:=为赋值符号（=为相等符号）；<img src="http://www.forkosh.com/mathtex.cgi?  \alpha">被称为学习速率，它的值越大，梯度下降的速度越快，但如果太大，梯度下降法可能越过最低点，甚至无法收敛，它的值越小，梯度下降速度越慢。
     正确的更新顺序：
