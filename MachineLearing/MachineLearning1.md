@@ -9,7 +9,9 @@
 
 
 用一条直线来拟合需要的数据 
-$$ h(x)=\theta_{0}+\theta_{1}x $$
+$$ 
+h(x)=\theta\_{0}+\theta\_{1}x 
+$$
  （假设函数）。
 
 ![lineFunction](file:///Users/wangruchen/work/github/wangruchen/MyCompilation/MachineLearing/figures/lineFunction.png)
