@@ -1,7 +1,6 @@
 # 斯坦福机器学习整理1——第一周
 <script type="text/javascript"
- src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
- mathjax: true>
+ src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 ## 监督学习（Supervised Learning）
