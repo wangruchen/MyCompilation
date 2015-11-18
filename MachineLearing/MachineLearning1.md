@@ -1,10 +1,16 @@
 # 斯坦福机器学习整理1——第一周
-
+<script type="text/javascript"
+ src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 ## 监督学习（Supervised Learning）
 监督学习可以分为**分类算法**和**回归算法**。回归：根据之前的数据预测出一个准确的数值。分类：预测离散的输出值。
 
 ### 线性回归
-用一条直线来拟合需要的数据<img src="http://chart.googleapis.com/chart?cht=tx&chl= h(x)=\theta_{0}+\theta_{1}x" style="border:none;">（假设函数）。
+
+
+用一条直线来拟合需要的数据 
+$$h(x)=\theta\_{0}+\theta\_{1}x$$
+ （假设函数）。
 
 ![lineFunction](file:///Users/wangruchen/work/github/wangruchen/MyCompilation/MachineLearing/figures/lineFunction.png)
 
