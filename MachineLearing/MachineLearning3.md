@@ -1,3 +1,11 @@
 # 斯坦福机器学习整理3——第三周
 
-## 
+## 逻辑回归（Logistic Regression）
+
+一种分类算法，其输出值一直在0到1之间。
+
+<img src="http://www.forkosh.com/mathtex.cgi? h_{\theta}(x)=g(\theta^{T}x)"> 假设函数
+
+<img src="http://www.forkosh.com/mathtex.cgi? g(z)=\frac{1}{1+e^{-z}}">
+称为Sigmoid Function或Logistic Function。如图![Logistic Function](file:///Users/wangruchen/work/github/wangruchen/MyCompilation/MachineLearing/figures/LogisticFunction.png)
+
