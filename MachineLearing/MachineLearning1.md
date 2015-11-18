@@ -1,6 +1,7 @@
 # 斯坦福机器学习整理1——第一周
 <script type="text/javascript"
- src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+ src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+ mathjax: true>
 </script>
 ## 监督学习（Supervised Learning）
 监督学习可以分为**分类算法**和**回归算法**。回归：根据之前的数据预测出一个准确的数值。分类：预测离散的输出值。
