@@ -9,7 +9,7 @@
 假设函数：<img src="http://www.forkosh.com/mathtex.cgi? h_{\theta}(x)=g(\theta^{T}x)"> 
 
 <img src="http://www.forkosh.com/mathtex.cgi? g(z)=\frac{1}{1+e^{-z}}">
-称为Sigmoid Function或Logistic Function。如图![Logistic Function](file:///Users/wangruchen/work/github/wangruchen/MyCompilation/MachineLearing/figures/LogisticFunction.png)
+称为Sigmoid Function或Logistic Function。如图![Logistic Function](file:///Users/wangruchen/work/github/wangruchen/MyCompilation/MachineLearing/MachineLearning-Stanford/figures/LogisticFunction.png)
 假设函数：
 $$ h\_{\theta}(x)=\frac{1}{1+e^{-\theta^{T}x}}$$
 
@@ -37,7 +37,7 @@ $$
 
 所以逻辑回归代价函数可以写成：
 $$
-J(\theta)=-\frac{1}{m}[\sum^{m}\_{i=1}y^{i}\log h\_{\theta}(x^(i))+(1-y^{(i)})\log (1-h\_{\theta}(x^{(i)}))]
+J(\theta)=-\frac{1}{m}[\sum^{m}\_{i=1}y^{i}\log h\_{\theta}(x^{(i)})+(1-y^{(i)})\log (1-h\_{\theta}(x^{(i)}))]
 $$
 #### 3. 梯度下降法求使<img src="http://www.forkosh.com/mathtex.cgi? J(\theta)">最小的值
 根据梯度下降法可以得到<img src="http://www.forkosh.com/mathtex.cgi? \theta">的更新过程：

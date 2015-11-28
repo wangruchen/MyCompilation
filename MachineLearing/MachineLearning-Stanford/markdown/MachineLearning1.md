@@ -18,7 +18,7 @@ $$
 ![lineFunction](file:///Users/wangruchen/work/github/wangruchen/MyCompilation/MachineLearing/figures/lineFunction.png)
 
 - 怎样求假设函数中<img src="http://www.forkosh.com/mathtex.cgi? \theta_{0},\theta_{1}">的值：
-就是让**代价函数(cost function)** $$ J(\theta)=\frac{1}{2m}\sum^{m}\_{i=1}(h_{\theta}(x^{i})-y^{i})^{2}$$（表示预测值和实际值之间的误差）取得最小值。代价函数有时也被称为平方误差函数。
+就是让**代价函数(cost function)** $$ J(\theta)=\frac{1}{2}\sum^{m}\_{i=1}(h_{\theta}(x^{i})-y^{i})^{2}$$（表示预测值和实际值之间的误差）取得最小值。代价函数有时也被称为平方误差函数。
 
 - 求代价函数最小值的方法：**梯度下降法（Gradient desent）**。
 
