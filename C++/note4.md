@@ -138,3 +138,23 @@ delete [] psome;
 如果使用new时带方括号，则delete也带方括号；如果使用new时不带方括号，则使用delete也不带放括号。
 
 如何访问数组中的元素：`psome[0]`访问第一个元素，`psome[1]`访问的第二个元素。
+
+### 使用new创建动态结构
+
+动态意味着内存是在运行时，而不是在编译时分配的。
+
+将new用于结构由两步组成：创建结构和访问其成员。示例：
+
+```
+struct inflatable
+{
+	char name[20];
+	double price;
+}
+int main()
+{
+	inflatable * ps = new inflatable;
+	cin >> ps -> price;
+	cin >> (*ps).name;
+}
+```
