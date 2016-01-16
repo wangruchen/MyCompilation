@@ -13,7 +13,7 @@
 
 ## 结构
 
-结构是用户定义的类型。创建结构包括两步：先定义结构描述，然后创建结构变量。
+结构是用户定义的类型，可以将多个不同类型的值存储在同一数据对象中。创建结构包括两步：先定义结构描述，然后创建结构变量。
 
 - 声明结构：
 
@@ -154,7 +154,45 @@ struct inflatable
 int main()
 {
 	inflatable * ps = new inflatable;
-	cin >> ps -> price;
-	cin >> (*ps).name;
+	cin >> ps -> price;//访问成员
+	cin >> (*ps).name;//访问成员
 }
 ```
+
+## 数组的替代品
+
+### 模板类vector
+
+模板类vector是一种动态数组，使用vector对象，首先必须包含头文件vector；其次，vector包含在名称空间std中。示例：
+
+```
+#include <vector>
+using namespace std;
+
+vector<int> vi;//创建大小为0的int型数组
+int n;
+cin >> n;
+vector<double> vd(n);//创建大小为n的double形数组
+```
+声明一个vector对象：
+
+```
+vector<typeName> vt(n_elem);
+```
+
+### 模板类array
+
+模板类array也位于名称空间std中，使用array需要包含头文件array。示例：
+
+```
+#include <array>
+using namespace std;
+
+array<int, 5> ai;//创建int型数组，有5个元素
+```
+声明一个array对象：
+
+```
+array<typeName, n_elem> arr;
+```
+其中n_elem不能是变量。
