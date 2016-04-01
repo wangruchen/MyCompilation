@@ -6,7 +6,7 @@ shell有许多不同的版本，Linux中默认的版本为bash。
 
 ## Bash shell的功能
 
-- 记忆功能(history)
+- `history`历史命令
 - 命令文件补全功能([tab])
 - 命令别名配置功能(alias)
 
@@ -40,6 +40,27 @@ type [-tpa] name
 4. 可以用跳脱字符`\`将特殊符号变为一般字符
 5. 若该变量需要在其他子程序运行，则需要以 export 来使变量变成环境变量：`export PATH`
 6. 取消变量的方法为unset 
+
+## 键盘读取、宣告
+
+1. `read`读取来自键盘输入的变量
+
+	```
+	read [-pt] variable
+	选项与参数：
+	-p  ：后面可以接提示字符
+	-t  ：后面可以接等待的秒数
+	```
+2. `declare`和`typeset`宣告变量的类型
+
+	```
+	declare [-aixr] variable
+	选项与参数：
+	-a  ：将后面名为 variable 的变量定义成为数组 (array) 类型
+	-i  ：将后面名为 variable 的变量定义成为整数数字 (integer) 类型
+	-x  ：用法与 export 一样，就是将后面的 variable 变成环境变量；
+	-r  ：将变量配置成为 readonly 类型，该变量不可被更改内容，也不能 unset
+	```
 
 ## 从网页上抓取内容
 
