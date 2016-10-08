@@ -20,7 +20,7 @@
 - my_dict.items() 返回全部键值对
 - my_dict.keys() 全部的键
 - my_dict.values() 全部的值
-- my_dict.clear 清空字典
+- my_dict.clear() 清空字典
 
 # 集合（set）
 
