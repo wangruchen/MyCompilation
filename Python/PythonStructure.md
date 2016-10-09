@@ -31,3 +31,6 @@ for anElement in object:
 ```
 range(start,stop,step) 循环范围
 ```
+
+## pass语句
+为了保持程序结构的完整性，pass不做任何事情，一般用做占位符
