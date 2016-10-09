@@ -146,19 +146,77 @@ add_executable(name ${DIR_SRCS})
     |
     +--- main.cpp
     |
+    +--- CMakeLists.txt(1)
+    |
     +--- subfunction/
           |
           +--- subfunction.cpp
           |
           +--- subfunction.h
+          |
+          +--- CMakeLists.txt(2)
 ```
-编写 CMakeLists.txt 文件可以写成：
+编写 CMakeLists.txt(1) 文件可以写成：
 
 ```
 cmake_minimum_required(VERSION 3.1)
 project(name)
-aux_source_directory(. DIR_SRCS)
 add_subdirectory(subfunction)
+include_directories(subfunction)
 add_executable(name ${DIR_SRCS})
+target_link_libraries(name subfunction)
 ```
 `add_subdirectory`:指明本项目包含一个子目录subfunction。
+
+CMakeLists.txt(2) 文件可以写成：
+
+```
+aux_source_directory(. DIR_SRCS)
+add_library(subfunction ${DIR_SRCS})
+```
+###例5
+**如果有多个目录多个源文件（源文件放在不同的目录下），需要调用OpenCV库。**
+
+```
+./hog
+    |
+    +--- main.cpp
+    |
+    +--- CMakeLists.txt(1)
+    |
+    +--- source/
+          |
+          +--- confusionMatrix.cpp
+          |
+          +--- pathAndLabel.cpp
+          |
+          +--- WriteData.cpp
+          |
+          +--- confusionMatrix.h
+          |
+          +--- pathAndLabel.h
+          |
+          +--- WriteData.h
+          |
+          +--- CMakeLists.txt(2)
+```
+
+CMakeLists.txt(1):
+
+```
+cmake_minimum_required(VERSION 3.1)
+project(hog)
+find_package(OpenCV REQUIRED)
+include_directories(/usr/local/include source)
+add_subdirectory(source)
+add_executable(hog main.cpp)
+target_link_libraries(hog ${OpenCV_LIBS} source)
+```
+CMakeLists.txt(2):
+
+```
+aux_source_directory(. DIR_SRCS)
+add_library(source ${DIR_SRCS})
+```
+
+
